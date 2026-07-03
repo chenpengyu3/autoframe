@@ -1,0 +1,60 @@
+# AutoFrame v2 - Minimal config (everything else is auto-detected)
+# Target URL must be provided via --url flag or AUTOFRAME_BASE_URL env var.
+
+service:
+  base_url: "${AUTOFRAME_BASE_URL}"  # REQUIRED: set via --url or env var
+  type: "auto"  # auto | spring_boot | python
+
+thresholds:
+  max_response_time_ms: 2000
+  max_error_rate_percent: 5.0
+  min_throughput_rps: 10
+  max_p99_latency_ms: 5000
+
+test_suite:
+  modules:
+    - api
+    - performance
+    - security
+    - concurrency
+    - fault_tolerance
+    - database
+    - database_matrix
+    - ecosystem
+    - enterprise
+    - endpoint_matrix
+    - contract
+    - dast
+    - spring_matrix
+    - source_quality
+    - source_matrix
+    - validation
+    - compatibility
+    - files
+    - observability
+    - documentation
+
+performance:
+  load_test:
+    users: 10
+    spawn_rate: 5
+    duration_seconds: 10
+  stress_test:
+    stages: [5, 10, 20]
+    step_duration_seconds: 5
+  response_time:
+    sample_size: 20
+    concurrency: 5
+
+concurrency:
+  max_threads: 10
+  requests_per_thread: 5
+
+fault_tolerance:
+  timeout_seconds: 10
+  rapid_requests: 30
+  recovery_wait_seconds: 3
+
+report:
+  output_dir: "reports/"
+  format: "html"
